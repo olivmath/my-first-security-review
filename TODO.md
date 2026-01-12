@@ -1,0 +1,6 @@
+- [ ] Fullfill the onboarding process
+- [ ] Scoping stats
+- [ ] Reconnaissance
+- [ ] Vulnerability identification
+- [ ] Write proof of concepts for each vulnerability
+- [ ] Write a report
