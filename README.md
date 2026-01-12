@@ -1,66 +1,57 @@
-## Foundry
+# Security Review Challenge - TokenSale
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Objetivo
 
-Foundry consists of:
+Encontre todas as vulnerabilidades no contrato `src/TokenSale.sol`.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Quando terminar, descriptografe o arquivo `vulnerabilities.enc` para verificar suas respostas.
 
-## Documentation
+---
 
-https://book.getfoundry.sh/
+## Logica de Negocios
 
-## Usage
+O contrato `TokenSale` implementa uma venda de tokens com as seguintes regras:
 
-### Build
+### Regras de Negocio
 
-```shell
-$ forge build
+1. **Whitelist**: Apenas usuarios na whitelist podem comprar tokens
+   - Somente o owner pode adicionar usuarios a whitelist
+
+2. **Compra de Tokens**:
+   - O preco por token e 1 ETH (configuravel pelo owner)
+   - Usuario envia ETH e recebe tokens proporcionalmente
+   - A venda so funciona quando `saleActive = true`
+
+3. **Transferencia**: Usuarios podem transferir tokens entre si
+
+4. **Reembolso**: Usuarios podem devolver tokens e receber ETH de volta
+   - O valor devolvido e calculado pelo preco atual do token
+   - Usuario so pode pedir reembolso de tokens que possui
+
+5. **Administracao (somente owner)**:
+   - Alterar preco do token
+   - Sacar fundos do contrato
+   - Pausar a venda em emergencias
+
+---
+
+## Como Verificar Suas Respostas
+
+```bash
+openssl enc -aes-256-cbc -d -pbkdf2 -in vulnerabilities.enc -out respostas.txt -pass pass:CHAVE
 ```
 
-### Test
+---
 
-```shell
-$ forge test
-```
+## Comandos Uteis
 
-### Format
+```bash
+# Compilar
+forge build
 
-```shell
-$ forge fmt
-```
+# Rodar testes
+forge test -vv
 
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+# Ver cobertura
+forge coverage
 ```
