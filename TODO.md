@@ -1,6 +1,10 @@
-- [ ] Fullfill the onboarding process
-- [ ] Scoping stats
+- [ ] Fulfill the onboarding process
+- [ ] Scoping stats (nSLOC, complexity score, timeline)
 - [ ] Reconnaissance
-- [ ] Vulnerability identification
-- [ ] Write proof of concepts for each vulnerability
-- [ ] Write a report
+  - [ ] Read all docs + map actors/roles/trust boundaries
+  - [ ] `forge test && forge coverage`
+  - [ ] Run Slither / Aderyn (static analysis)
+- [ ] Vulnerability identification (manual review + checklist)
+- [ ] Fuzzing / Invariant testing
+- [ ] Write PoCs + classify severity (Critical / High / Medium / Low / Informational / Gas)
+- [ ] Write report
